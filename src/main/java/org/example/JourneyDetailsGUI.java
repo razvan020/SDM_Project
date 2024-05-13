@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class JourneyDetailsGUI extends JFrame {
 
@@ -12,7 +14,7 @@ public class JourneyDetailsGUI extends JFrame {
     private JComboBox<String> destinationComboBox;
     private JLabel timeLabel;
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3307/ticketing_system";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/ticketing_system";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "root";
 
@@ -90,7 +92,11 @@ public class JourneyDetailsGUI extends JFrame {
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     int estimatedTime = rs.getInt("estimated_time");
-                    timeLabel.setText(estimatedTime + " minutes");
+                    LocalDateTime now = LocalDateTime.now();
+                    LocalDateTime estimatedArrival = now.plusMinutes(estimatedTime);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String formattedEstimatedArrival = estimatedArrival.format(formatter);
+                    timeLabel.setText(formattedEstimatedArrival);
                 } else {
                     JOptionPane.showMessageDialog(this, "Journey details not found.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

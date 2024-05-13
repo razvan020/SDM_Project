@@ -17,7 +17,7 @@ public class TicketPurchaseGUI extends JFrame {
     private static final String[] ticketTypes = {"90 minutes", "Full day", "Monthly"};
     private static final String[] transportOptions = {"Bus", "Train", "Trolley"};
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3307/ticketing_system";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/ticketing_system";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "root";
 
